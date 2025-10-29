@@ -38,6 +38,7 @@ const searchBtn = document.getElementById('search-btn');
 const searchInput = document.getElementById('search');
 const loading = document.getElementById('loading');
 
+
 searchBtn.addEventListener('click', performSearch);
 searchInput.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') performSearch();
@@ -46,11 +47,11 @@ searchInput.addEventListener('keypress', (e) => {
 function performSearch() {
     const query = searchInput.value.trim();
     if (!query) return;
-
+    
     loading.classList.add('active');
-
+    
     const apiUrl = `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(query)}`;
-
+    
     fetch(apiUrl)
         .then(response => {
             if (!response.ok) throw new Error("No results found.");
@@ -67,4 +68,6 @@ function performSearch() {
         .finally(() => {
             loading.classList.remove('active');
         });
-}
+        const definer = document.getElementById('def')
+        definer.innerHTML=`Definition: ${searchInput.value}`
+    }
